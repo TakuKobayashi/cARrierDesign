@@ -3,6 +3,7 @@ const ytdl = require('ytdl-core');
 const youtubeUrls = [
   // トヨタ工場製造組付け過程
   "https://www.youtube.com/watch?v=t0E66vaiXeg",
+  /*
   "https://www.youtube.com/watch?v=cXMN8DuFhMQ",
   // 整備士、エンジニア
   "https://www.youtube.com/watch?v=-MA9RhXBWKE",
@@ -39,6 +40,7 @@ const youtubeUrls = [
   "https://www.youtube.com/watch?v=eiAEEkmREkQ",
   "https://www.youtube.com/watch?v=84psrM0ctnQ",
   "https://www.youtube.com/watch?v=wflOsmGROrI",
+  */
 ]
 
 exports.handler = async (event, context) => {

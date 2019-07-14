@@ -41,7 +41,8 @@ public class ARUICanvas : MonoBehaviour
             RecognizedResult recognizedResult = JsonConvert.DeserializeObject<RecognizedResult>(result);
             GlobalController.Instance.RequestVideoInfo(recognizedResult.result, (string videoInfo) =>
             {
-                Debug.Log(videoInfo);
+                List<VideoInfo> videoInfos = JsonConvert.DeserializeObject<List<VideoInfo>>(videoInfo);
+                GlobalController.Instance.AppearVideo(videoInfos[0].formats[0].url);
             });
 
         });
