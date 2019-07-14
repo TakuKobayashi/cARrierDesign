@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 using ARKitAndARCoreCommon;
 using Newtonsoft.Json;
 
 public class ARUICanvas : MonoBehaviour
 {
     private ARControllerBase activeARController;
-    // Start is called before the first frame update
+    [SerializeField] private Button captureButton;
+    [SerializeField] private Text loadingMessage;
+
     void Start()
     {
-        
+        captureButton.gameObject.SetActive(true);
+        loadingMessage.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -33,6 +37,9 @@ public class ARUICanvas : MonoBehaviour
         }
         //      Texture2D captureImage = activeARController.captureCurrentFrame();
         //		string filePath = GlobalController.Instance.SaveImage(captureImage);
+
+        captureButton.gameObject.SetActive(false);
+        loadingMessage.gameObject.SetActive(true);
         Vector3 cameraPos = Camera.main.transform.position;
         cameraPos.z = cameraPos.z - 1.0f;
         GameObject anchorObject = activeARController.createAnchor(cameraPos, Quaternion.identity);
@@ -47,8 +54,9 @@ public class ARUICanvas : MonoBehaviour
             {
                 List<VideoInfo> videoInfos = JsonConvert.DeserializeObject<List<VideoInfo>>(videoInfo);
                 GlobalController.Instance.AppearVideo(videoInfos[0].formats[0].url, anchorObject);
+                captureButton.gameObject.SetActive(true);
+                loadingMessage.gameObject.SetActive(false);
             });
-
         });
 	}
 }
