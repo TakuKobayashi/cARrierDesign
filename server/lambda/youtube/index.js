@@ -41,10 +41,12 @@ const youtubeUrls = [
   "https://www.youtube.com/watch?v=wflOsmGROrI",
 ]
 
-Promise.all(youtubeUrls.map((youtubeUrl) => {
-  return ytdl.getInfo(youtubeUrl)
-})).then((infos) => {
-  for(const info of infos){
-    console.log(info);
-  }
-})
+exports.handler = async (event, context) => {
+  console.log(event);
+
+  const infos = await Promise.all(youtubeUrls.map((youtubeUrl) => {
+    return ytdl.getInfo(youtubeUrl)
+  }));
+  console.log(infos)
+  return infos;
+};
