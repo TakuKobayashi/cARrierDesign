@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1331574409631323136}
   - component: {fileID: 1331574409631323139}
   - component: {fileID: 1331574409631323138}
+  - component: {fileID: 6540147535161826510}
   m_Layer: 0
   m_Name: VideoPlane
   m_TagString: Untagged
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -114,3 +115,15 @@ VideoPlayer:
   m_Looping: 0
   m_WaitForFirstFrame: 1
   m_FrameReadyEventEnabled: 0
+--- !u!114 &6540147535161826510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331574409631323141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af0b594dc880f43268d622f863564d0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
