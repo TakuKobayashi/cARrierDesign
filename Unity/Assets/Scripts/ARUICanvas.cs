@@ -11,11 +11,13 @@ public class ARUICanvas : MonoBehaviour
     private ARControllerBase activeARController;
     [SerializeField] private Button captureButton;
     [SerializeField] private Text loadingMessage;
+    [SerializeField] private Text scanResultText;
 
     void Start()
     {
         captureButton.gameObject.SetActive(true);
         loadingMessage.gameObject.SetActive(false);
+        scanResultText.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -50,6 +52,8 @@ public class ARUICanvas : MonoBehaviour
 		{
 			Debug.Log(result);
             RecognizedResult recognizedResult = JsonConvert.DeserializeObject<RecognizedResult>(result);
+            scanResultText.gameObject.SetActive(true);
+            scanResultText.text = string.Join(",", recognizedResult.result.ToArray()) + " だって!!";
             GlobalController.Instance.RequestVideoInfo(recognizedResult.result, (string videoInfo) =>
             {
                 List<VideoInfo> videoInfos = JsonConvert.DeserializeObject<List<VideoInfo>>(videoInfo);
