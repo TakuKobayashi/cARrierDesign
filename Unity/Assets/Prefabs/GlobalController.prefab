@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 0
   videoController: {fileID: 5401148053287440917}
+  uploadFileUrl: http://192.168.43.141:5000
 --- !u!1 &4968177249780298758
 GameObject:
   m_ObjectHideFlags: 0
