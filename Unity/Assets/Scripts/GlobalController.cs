@@ -26,6 +26,15 @@ public class GlobalController : SingletonBehaviour<GlobalController>
         videoController.AppearVideoPlane(videoUrl, appearObject);
     }
 
+    public string SaveImage(Texture2D image)
+	{
+		byte[] jpegData = tex.EncodeToJPG();
+		string uuid = Guid.NewGuid.ToString();
+        string filePath = Path.Combine(Application.persistentDataPath, uuid + ".jpg");
+		File.WriteAllBytes(filePath, jpegData);
+		return filePath;
+	}
+
     public void RecognizeImage(string imageFilePath, Action<string> OnRecognizedResult)
 	{
 		StartCoroutine(this.UploadFile(imageFilePath, OnRecognizedResult));
