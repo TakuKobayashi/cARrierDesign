@@ -180,6 +180,13 @@ namespace ARKitAndARCoreCommon
             }
         }
 
+        public override GameObject createAnchor(Vector3 pos, Quaternion rotate)
+        {
+            Pose pose = new Pose(pos, rotate);
+            Anchor anchor = Session.CreateAnchor(pose);
+            return anchor.gameObject;
+        }
+
         /// <summary>
         /// Actually quit the application.
         /// </summary>

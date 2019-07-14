@@ -39,5 +39,10 @@ namespace ARKitAndARCoreCommon
         {
             return null;
         }
+
+        public virtual GameObject createAnchor(Vector3 pos, Quaternion rotate)
+        {
+            return this.gameObject;
+        }
     }
 }
