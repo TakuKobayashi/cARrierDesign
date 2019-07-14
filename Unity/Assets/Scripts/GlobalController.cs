@@ -28,8 +28,8 @@ public class GlobalController : SingletonBehaviour<GlobalController>
 
     public string SaveImage(Texture2D image)
 	{
-		byte[] jpegData = tex.EncodeToJPG();
-		string uuid = Guid.NewGuid.ToString();
+		byte[] jpegData = image.EncodeToJPG();
+		string uuid = Guid.NewGuid().ToString();
         string filePath = Path.Combine(Application.persistentDataPath, uuid + ".jpg");
 		File.WriteAllBytes(filePath, jpegData);
 		return filePath;

@@ -17,7 +17,6 @@
             base.Awake();
             Util.InstantiateTo(this.gameObject, remoteConnectionPrefab);
             unityARAnchorManager = new UnityARAnchorManager();
-            UnityARUtility.InitializePlanePrefab(DetectedPlanePrefab);
         }
 
         protected override void Update()

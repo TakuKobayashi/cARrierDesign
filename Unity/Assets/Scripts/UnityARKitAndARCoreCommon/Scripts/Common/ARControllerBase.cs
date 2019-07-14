@@ -5,7 +5,6 @@ namespace ARKitAndARCoreCommon
     public abstract class ARControllerBase : MonoBehaviour
     {
         [SerializeField] protected GameObject ARMainCameraPrefab;
-        [SerializeField] protected GameObject DetectedPlanePrefab;
         [SerializeField] private GameObject PointCloudPrefab;
 
         protected GameObject pointCloudObj;
@@ -34,6 +33,11 @@ namespace ARKitAndARCoreCommon
 
         protected virtual void Update()
         {
+        }
+
+        public virtual Texture2D captureCurrentFrame()
+        {
+            return null;
         }
     }
 }

@@ -36,14 +36,6 @@ namespace ARKitAndARCoreCommon
     public class ARCoreController : ARControllerBase
     {
         [SerializeField] private GameObject EnvironmentalLightPrefab;
-        /// <summary>
-        /// A model to place when a raycast from a user touch hits a plane.
-        /// </summary>
-        [SerializeField] private GameObject AndyPlanePrefab;
-        /// <summary>
-        /// A model to place when a raycast from a user touch hits a feature point.
-        /// </summary>
-        [SerializeField] private GameObject AndyPointPrefab;
 
         /// <summary>
         /// The rotation in degrees need to apply to model when the Andy model is placed.
@@ -87,14 +79,6 @@ namespace ARKitAndARCoreCommon
 
             // Iterate over planes found in this frame and instantiate corresponding GameObjects to visualize them.
             Session.GetTrackables<DetectedPlane>(m_NewPlanes, TrackableQueryFilter.New);
-            for (int i = 0; i < m_NewPlanes.Count; i++)
-            {
-                // Instantiate a plane visualization prefab and set it to track the new plane. The transform is set to
-                // the origin with an identity rotation since the mesh for our prefab is updated in Unity World
-                // coordinates.
-                GameObject planeObject = Instantiate(DetectedPlanePrefab, Vector3.zero, Quaternion.identity, transform);
-                planeObject.GetComponent<DetectedPlaneVisualizer>().Initialize(m_NewPlanes[i]);
-            }
 
             // Hide snackbar when currently tracking at least one plane.
             Session.GetTrackables<DetectedPlane>(m_AllPlanes);
@@ -134,31 +118,24 @@ namespace ARKitAndARCoreCommon
                 }
                 else
                 {
-                    // Choose the Andy model for the Trackable that got hit.
-                    GameObject prefab;
-                    if (hit.Trackable is FeaturePoint)
-                    {
-                        prefab = AndyPointPrefab;
-                    }
-                    else
-                    {
-                        prefab = AndyPlanePrefab;
-                    }
 
-                    // Instantiate Andy model at the hit pose.
-                    var andyObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
-
-                    // Compensate for the hitPose rotation facing away from the raycast (i.e. camera).
-                    andyObject.transform.Rotate(0, k_ModelRotation, 0, Space.Self);
-
-                    // Create an anchor to allow ARCore to track the hitpoint as understanding of the physical
-                    // world evolves.
-                    var anchor = hit.Trackable.CreateAnchor(hit.Pose);
-
-                    // Make Andy model a child of the anchor.
-                    andyObject.transform.parent = anchor.transform;
                 }
             }
+        }
+
+        public override Texture2D captureCurrentFrame()
+        {
+            Texture2D texture = null;
+            using (CameraImageBytes image = Frame.CameraImage.AcquireCameraImageBytes())
+            {
+                texture = new Texture2D(image.Width, image.Height, TextureFormat.RGBA32, false, false);
+                byte[] imageBinary = new byte[image.Width * image.Height * 4];
+                int bufferSize = image.YRowStride * image.Height;
+                System.Runtime.InteropServices.Marshal.Copy(image.Y, imageBinary, 0, bufferSize);
+                texture.LoadRawTextureData(imageBinary);
+                texture.Apply();
+            }
+            return texture;
         }
 
         /// <summary>
